@@ -2,9 +2,12 @@ const express = require("express");
 const { appName } = require("./config/setup.json");
 const app = express();
 const healthCheckCounts = 5;
-let healthCheck = 0
+const tasksCount = 6;
 const demandHost = process.env.DEMAND_HOST
 const PORT = process.env.PORT;
+
+let healthCheck = 0
+
 if (!PORT) {
     console.error("PORT is not set");
     process.exit(1);
@@ -43,8 +46,18 @@ const httpWrapper = (server, hc, demand, cmap) => {
             <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
             <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allerta+Stencil">
             <div class="w3-container">
+    
 
             <style>
+                * {margin: 0; padding: 0}
+                body {background: #000;}
+                canvas {
+                    display: block;
+                    position:absolute;
+                    left:0;
+                    top:0;
+                    z-index:-1;
+                }
                 body {
                     display: flex;
                     flex-direction: column;
@@ -77,20 +90,24 @@ const httpWrapper = (server, hc, demand, cmap) => {
                     margin-top: 100px;
                 }
                 .container-wrapper{
-                    padding: 40px;
+                    z-index:10000;
+                    padding:100px;
                 }
             </style>
         </head>
-        <html>
-
+      <html>
         <body>
             <div class="container-wrapper">
                 <h2>Naor's (Abu Emma) - Kube Workshop</h2>
                 <div class="w3-light-grey">
-                    <div class="w3-blue" style="height:24px;width:${[server, hc, cmap, demand].filter(it => it).length * 25}%"></div>
+                    <div class="w3-blue" style="height:24px;width:${[server,server, server, hc, cmap, demand].filter(it => it).length * 100/(tasksCount)}%"></div>
                 </div>
 
                 <table>
+                    <tr>
+                        <th>Create new UAT Enviorment</th>
+                        <th>(${marker(server)}) </th>
+                    </tr>
                     <tr>
                         <th>Update image tag to latest</th>
                         <th>(${marker(server)}) </th>
@@ -113,12 +130,43 @@ const httpWrapper = (server, hc, demand, cmap) => {
                     </tr>
                 </table>
                 ${allDone(server, hc, demand)}
-                <div class="x">
-                    <img src="https://github.com/ntedgi/kube-helm-workshop/blob/main/images/6ed3f654-53ab-4188-95a1-567e5d7218d6@3x.png?raw=true" alt="argo">
-                    <img src="https://github.com/ntedgi/kube-helm-workshop/blob/main/images/helm-icon-white.png?raw=true" width="300" height="300" alt="argo">
-                </div>
             <div>
         </body>
+        <canvas></canvas>
+        <script defer>
+            var canvas = document.querySelector('canvas'),
+                ctx = canvas.getContext('2d');
+
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            var letters = 'ABCDEFGHIJKLMNOPQRSTUVXYZABCDEFGHIJKLMNOPQRSTUVXYZABCDEFGHIJKLMNOPQRSTUVXYZABCDEFGHIJKLMNOPQRSTUVXYZABCDEFGHIJKLMNOPQRSTUVXYZABCDEFGHIJKLMNOPQRSTUVXYZ';
+            letters = letters.split('');
+
+            var fontSize = 10,
+                columns = canvas.width / fontSize;
+
+            var drops = [];
+            for (var i = 0; i < columns; i++) {
+                drops[i] = 1;
+            }
+
+            function draw() {
+            ctx.fillStyle = 'rgba(0, 0, 0, .1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+                for (var i = 0; i < drops.length; i++) {
+                    var text = letters[Math.floor(Math.random() * letters.length)];
+                    ctx.fillStyle = '#0f0';
+                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                    drops[i]++;
+                    if (drops[i] * fontSize > canvas.height && Math.random() > .95) {
+                    drops[i] = 0;
+                    }
+                }
+            }
+
+            setInterval(draw, 33);
+        </script>
     </html>
    `
 }
@@ -129,8 +177,7 @@ app.listen(PORT, '0.0.0.0', () => {
 });
 
 app.get("/health", (req, res) => {
-    if (healthCheck < healthCheckCounts)
-        console.log("Health Check!");
+    if (healthCheck < healthCheckCounts) console.log("Health Check!");
     healthCheck++;
     res.status(200).send("OK");
 });
