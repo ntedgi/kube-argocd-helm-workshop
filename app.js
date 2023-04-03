@@ -1,6 +1,7 @@
 const express = require("express");
 const { appName } = require("./config/setup.json");
 const app = express();
+const healthCheckCounts = 5;
 let healthCheck = 0
 const demandHost = process.env.DEMAND_HOST
 const PORT = process.env.PORT;
@@ -34,27 +35,9 @@ const allDone = (server, hc, demand) => {
     `:
         "<div/>"
 }
-// const httpWrapper = (server, hc, demand, cmap) => {
-//     return `<!DOCTYPE html>
-//             <html>
-//                 <body>
-//                     <h2>Naor's (Abu Emma) Kube Workshop</h2>
-//                     <ul>
-//                         <li>Server Up and Runing on port ${PORT} (${marker(server)}) </li>
-//                         <li>Health Check Working ( /health ) | Ping ${healthCheck} times (${marker(hc)}) </li>
-//                         <li>Config Map Injected Succefully (${marker(cmap)}) </li>
-//                         <li>Demand Connection Enabled ( process.env.DEMAND_HOST set to ${demandHost} )(${marker(demand)}) </li>
-//                     </ul>  
-//                     ${allDone(server, hc, demand)}
-//                 </body >
-//             </html >
-//     `
-// }
-
-
 
 const httpWrapper = (server, hc, demand, cmap) => {
-    return`
+    return `
         <!DOCTYPE html>
         <head>
             <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -69,6 +52,7 @@ const httpWrapper = (server, hc, demand, cmap) => {
                     font-family: "Allerta Stencil", Sans-serif;
                     color: white;
                     align-items: center;
+                    width: 100%;
                 }
 
                 h2 {
@@ -76,7 +60,9 @@ const httpWrapper = (server, hc, demand, cmap) => {
                     margin: 0;
                     padding: 10px;
                 }
-
+                table{
+                    padding: 30px;
+                }
                 td,th {
                     text-align: left;
                     padding: 8px;
@@ -86,36 +72,52 @@ const httpWrapper = (server, hc, demand, cmap) => {
                     font-family: "Allerta Stencil", Sans-serif;
 
                 }
+                .x{
+                    display: flex;
+                    margin-top: 100px;
+                }
+                .container-wrapper{
+                    padding: 40px;
+                }
             </style>
         </head>
         <html>
 
         <body>
-            <h2>Naor's (Abu Emma) - Kube Workshop</h2>
+            <div class="container-wrapper">
+                <h2>Naor's (Abu Emma) - Kube Workshop</h2>
+                <div class="w3-light-grey">
+                    <div class="w3-blue" style="height:24px;width:${[server, hc, cmap, demand].filter(it => it).length * 25}%"></div>
+                </div>
 
-            <div class="w3-light-grey">
-                <div class="w3-blue" style="height:24px;width:${[server, hc, cmap, demand].filter(it => it).length * 25}%"></div>
-            </div>
-
-            <table>
-                <tr>
-                    <th>Server Up and Runing on port 7777 </th>
-                    <th>(${marker(server)}) </th>
-                </tr>
-                <tr>
-                    <th>Health Check Working ( /health ) | Ping 0 times</th>
-                    <th>(${marker(hc)}) </th>
-                </tr>
-                <tr>
-                    <th>Config Map Injected Succefully </th>
-                    <th>(${marker(cmap)}) </th>
-                </tr>
-                <tr>
-                    <th>Demand Connection Enabled ( process.env.DEMAND_HOST set to undefined )</th>
-                    <th>(${marker(demand)}) </th>
-                </tr>
-            </table>
-            ${allDone(server, hc, demand)}
+                <table>
+                    <tr>
+                        <th>Update image tag to latest</th>
+                        <th>(${marker(server)}) </th>
+                    </tr>
+                    <tr>
+                        <th>Server Up and Runing on port ${PORT} </th>
+                        <th>(${marker(server)}) </th>
+                    </tr>
+                    <tr>
+                        <th>Health Check Working ( /health ) | Ping ${healthCheck} times</th>
+                        <th>(${marker(hc)}) </th>
+                    </tr>
+                    <tr>
+                        <th>Config Map Injected Succefully | Your App Name Is: ${appName}) </th>
+                        <th>(${marker(cmap)} </th>
+                    </tr>
+                    <tr>
+                        <th>Demand Connection Enabled ( process.env.DEMAND_HOST set to ${process.env.DEMAND_HOST} )</th>
+                        <th>(${marker(demand)}) </th>
+                    </tr>
+                </table>
+                ${allDone(server, hc, demand)}
+                <div class="x">
+                    <img src="https://github.com/ntedgi/kube-helm-workshop/blob/main/images/6ed3f654-53ab-4188-95a1-567e5d7218d6@3x.png?raw=true" alt="argo">
+                    <img src="https://github.com/ntedgi/kube-helm-workshop/blob/main/images/helm-icon-white.png?raw=true" width="300" height="300" alt="argo">
+                </div>
+            <div>
         </body>
     </html>
    `
@@ -127,14 +129,16 @@ app.listen(PORT, '0.0.0.0', () => {
 });
 
 app.get("/health", (req, res) => {
+    if (healthCheck < healthCheckCounts)
+        console.log("Health Check!");
     healthCheck++;
     res.status(200).send("OK");
 });
 
 app.get("/", async (req, res) => {
     const server = true;
-    const hc = healthCheck > 5;
+    const hc = healthCheck > healthCheckCounts;
     const demand = await fetchDemand();
-    const cmap = appName !== 'your_name'
-    res.send(httpWrapper(server, hc, demand));
+    const cmap = appName !== 'argo-master'
+    res.send(httpWrapper(server, hc, demand, cmap));
 });
