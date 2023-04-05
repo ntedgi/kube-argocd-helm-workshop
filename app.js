@@ -1,9 +1,10 @@
 const express = require("express");
+const fs = require("fs");
 const { appName } = require("./config/setup.json");
 const app = express();
 const healthCheckCounts = 5;
 const tasksCount = 6;
-const demandHost = process.env.DEMAND_HOST
+const demandHost = process.env.FRIEND_HOST
 const PORT = process.env.PORT;
 
 let healthCheck = 0
@@ -12,6 +13,7 @@ if (!PORT) {
     console.error("PORT is not set");
     process.exit(1);
 }
+
 async function fetchDemand() {
     try {
         const response = await fetch(demandHost + "/test/version")
@@ -27,8 +29,9 @@ async function fetchDemand() {
 const marker = (bool) => {
     return bool ? "✅" : "❌"
 }
-const allDone = (server, hc, demand) => {
-    return server && hc && demand ?
+
+const allDone = (server, hc, demand, cmap, secretFileExists) => {
+    return server && hc && demand && cmap && secretFileExists ?
         `
     <div>
         <img src="https://media2.giphy.com/media/doUu2ByZDbPYQ/giphy.gif?cid=ecf05e470eulqmthdu36rqfrloolut7ofzvvir8a8khj64ac&rid=giphy.gif&ct=g" alt="Trulli" width="500" height="333">
@@ -39,7 +42,7 @@ const allDone = (server, hc, demand) => {
         "<div/>"
 }
 
-const httpWrapper = (server, hc, demand, cmap) => {
+const httpWrapper = (server, hc, demand, cmap, secretFileExists) => {
     return `
         <!DOCTYPE html>
         <head>
@@ -100,7 +103,7 @@ const httpWrapper = (server, hc, demand, cmap) => {
             <div class="container-wrapper">
                 <h2>Naor's (Abu Emma) - Kube Workshop</h2>
                 <div class="w3-light-grey">
-                    <div class="w3-blue" style="height:24px;width:${[server,server, server, hc, cmap, demand].filter(it => it).length * 100/(tasksCount)}%"></div>
+                    <div class="w3-blue" style="height:24px;width:${[server, server, server, hc, cmap, demand].filter(it => it).length * 100 / (tasksCount)}%"></div>
                 </div>
 
                 <table>
@@ -125,11 +128,15 @@ const httpWrapper = (server, hc, demand, cmap) => {
                         <th>(${marker(cmap)} </th>
                     </tr>
                     <tr>
-                        <th>Demand Connection Enabled ( process.env.DEMAND_HOST set to ${process.env.DEMAND_HOST} )</th>
+                        <th>Kubectl exec it and connect to your POD | (dont forget to delete the secret)  </th>
+                        <th>(${marker(secretFileExists)}) </th>
+                    </tr>
+                    <tr>
+                        <th>Demand Connection Enabled ( process.env.FRIEND_HOST set to ${process.env.FRIEND_HOST} )</th>
                         <th>(${marker(demand)}) </th>
                     </tr>
                 </table>
-                ${allDone(server, hc, demand)}
+                ${allDone(server, hc, demand, cmap, secretFileExists)}
             <div>
         </body>
         <canvas></canvas>
@@ -164,13 +171,11 @@ const httpWrapper = (server, hc, demand, cmap) => {
                     }
                 }
             }
-
             setInterval(draw, 33);
         </script>
     </html>
    `
 }
-
 
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Application started and Listening on port ${PORT}`);
@@ -182,10 +187,16 @@ app.get("/health", (req, res) => {
     res.status(200).send("OK");
 });
 
+app.get("/test/version", (req, res) => {
+    res.status(200).send("1.0.0");
+});
+
+
 app.get("/", async (req, res) => {
     const server = true;
     const hc = healthCheck > healthCheckCounts;
     const demand = await fetchDemand();
+    const secretFileExists = await fs.existsSync("./SECRET.txt");
     const cmap = appName !== 'argo-master'
-    res.send(httpWrapper(server, hc, demand, cmap));
+    res.send(httpWrapper(server, hc, demand, cmap, !secretFileExists));
 });
