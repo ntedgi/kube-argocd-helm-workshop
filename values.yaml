@@ -1,0 +1,74 @@
+ua-workshop:
+  appName: ua-workshop
+  project: demand-platform
+  owner: demand
+  clusterNum: ""
+  team: ua
+  env:
+    FRIEND_HOST: http://friend:80/test/version
+  image:
+    repository: naortedgi/workshop
+  service:
+    ports:
+      http:
+        externalPort: 80
+        internalPort: 5400
+        protocol: TCP
+  virtualService:
+    enabled: true
+  livenessProbe:
+    enabled: true
+    failureThreshold: 5
+    initialDelaySeconds: 10
+    periodSeconds: 5
+    successThreshold: 1
+    timeoutSeconds: 5
+    mode: httpGet
+    httpGet:
+      port: 5400
+      path: /health
+  readinessProbe:
+    enabled: true
+    failureThreshold: 5
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 5
+    mode: httpGet
+    httpGet:
+      port: 5400
+      path: /health
+  resources:
+    limits:
+      cpu: 1
+      memory: 256Mi
+    requests:
+      cpu: 1
+      memory: 256Mi
+
+
+friend:
+  appName: friend
+  project: demand-platform
+  owner: demand
+  clusterNum: ""
+  team: ua
+  image:
+    repository: naortedgi/workshop
+  service:
+    ports:
+      http:
+        externalPort: 80
+        internalPort: 5400
+        protocol: TCP
+  virtualService:
+    enabled: false
+  livenessProbe:
+    enabled: false
+  resources:
+    limits:
+      cpu: 1
+      memory: 256Mi
+    requests:
+      cpu: 1
+      memory: 256Mi

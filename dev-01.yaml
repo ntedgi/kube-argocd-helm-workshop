@@ -1,0 +1,26 @@
+ua-workshop:
+  environment: "dev"
+  image:
+    tag: latest
+  volumes:
+    config-volume-development:
+      mountPath: /usr/local/app/config/setup.json
+      subPath: setup.json
+      volumeSpec:
+        configMap:
+          name: ua-workshop-workshop
+          items:
+            - key: setup.json
+              path: setup.json
+  configmaps:
+    workshop:
+      raw_data:
+        setup.json: |
+          {
+            "appName": "Neo"
+          }
+
+friend:
+  environment: "dev"
+  image:
+    tag: latest

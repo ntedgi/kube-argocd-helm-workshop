@@ -1,0 +1,13 @@
+apiVersion: v2
+name: ua-workshop
+type: application
+version: 1.0.15
+dependencies:
+- name: base-app
+  alias: ua-workshop
+  repository: https://nexus.service.ironsrc.mobi/repository/mobile-helm-charts
+  version: 2.0.44
+- name: base-app
+  alias: friend
+  repository: https://nexus.service.ironsrc.mobi/repository/mobile-helm-charts
+  version: 2.0.44
