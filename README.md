@@ -1,3 +1,6 @@
+![My Image](./images/1680500943-185.220.207.86.png)
+
+
 # Hands on Kube Workshop
 
 at this workshop were going to pass on all basic usage of helm charts and kuberntis elements .
