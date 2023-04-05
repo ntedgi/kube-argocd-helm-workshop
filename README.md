@@ -1,6 +1,14 @@
 ![My Image](./images/1680500943-185.220.207.86.png)
 
 
+## License MIT © 
+---
+```ts
+if (this.repo.isAwesome || this.repo.isHelpful) {
+  Star(this.repo);
+}
+```
+
 # Hands on Kube Workshop
 
 at this workshop were going to pass on all basic usage of helm charts and kuberntis elements .
@@ -58,3 +66,7 @@ our server need to send request to other POD at the same enviorment
 * KubecTL inside PODS
 * Inject Enviorment Veraibls
 * Inject Config map
+
+
+
+
