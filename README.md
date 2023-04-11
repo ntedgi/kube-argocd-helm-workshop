@@ -75,7 +75,7 @@ the command you need is :
 `kubectl -n <NAME-SPACE> exec -it <POD>`
 
 
-## Step 6 - inject enviorment veraible 
+## Step 6 - interact with pods on same namespace
 * our server need to send request to other POD at the same enviorment 
 * add new Enviorment veraible with the `FRIEND_HOST`
 with the uri for the friend host and : `http://.../test/version ` 
