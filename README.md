@@ -1,13 +1,18 @@
+
+
+[![Docker Pulls](https://badgen.net/docker/pulls/naortedgi/workshop?icon=docker&label=pulls)](https://hub.docker.com/r/naortedgi/workshop/) 
+[![Docker Stars](https://badgen.net/docker/stars/naortedgi/workshop?icon=docker&label=stars)](https://hub.docker.com/r/naortedgi/workshop/) 
+[![Docker Image Size](https://badgen.net/docker/size/naortedgi/workshop?icon=docker&label=image%20size)](https://hub.docker.com/r/naortedgi/workshop/) 
+![Github stars](https://badgen.net/github/stars/ntedgi/kube-argocd-helm-workshop?icon=github&label=stars) 
+![Github forks](https://badgen.net/github/forks/ntedgi/kube-argocd-helm-workshop?icon=github&label=forks) 
+![Github issues](https://img.shields.io/github/issues/ntedgi/kube-argocd-helm-workshop)
+![Github last-commit](https://img.shields.io/github/last-commit/ntedgi/kube-argocd-helm-workshop)
+
+
 ![My Image](./images/1680500943-185.220.207.86.png)
 
 
-## License MIT © 
----
-```ts
-if (this.repo.isAwesome || this.repo.isHelpful) {
-  Star(this.repo);
-}
-```
+
 
 # Hands on Kube Workshop
 
@@ -81,3 +86,10 @@ the command you need is :
 with the uri for the friend host and : `http://.../test/version ` 
 * what is the host name of pods under the same namespace?
 
+## License MIT © 
+---
+```ts
+if (this.repo.isAwesome || this.repo.isHelpful) {
+  Star(this.repo);
+}
+```
