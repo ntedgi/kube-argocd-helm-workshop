@@ -1,4 +1,5 @@
 const express = require("express");
+const bpeh = require('express-body-parser-error-handler')
 const app = express();
 const PORT = process.env.PORT;
 if (!PORT) {
@@ -71,7 +72,7 @@ app.listen(PORT, () => {
     console.log(`Application started and Listening on port ${PORT}`);
 });
 
-
+app.use(bpeh())
 app.get("/", async (req, res) => {
     res.send(httpWrapper(false, false, false, false));
 });

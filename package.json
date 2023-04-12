@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/ntedgi/kube-helm-workshop#readme",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "express-body-parser-error-handler": "^1.0.4"
   }
 }

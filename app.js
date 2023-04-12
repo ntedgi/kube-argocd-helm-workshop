@@ -1,4 +1,5 @@
 const express = require("express");
+const bpeh = require('express-body-parser-error-handler')
 const fs = require("fs");
 const { appName } = require("./config/setup.json");
 const app = express();
@@ -180,6 +181,8 @@ const httpWrapper = (server, hc, demand, cmap, secretFileExists) => {
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Application started and Listening on port ${PORT}`);
 });
+
+app.use(bpeh())
 
 app.get("/health", (req, res) => {
     if (healthCheck < healthCheckCounts) console.log("Health Check!");

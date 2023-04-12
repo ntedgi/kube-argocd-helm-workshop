@@ -12,36 +12,62 @@
 ![My Image](./images/1680500943-185.220.207.86.png)
 
 
-
-
 # Hands on Kube Workshop
 
-at this workshop were going to pass on all basic usage of helm charts and kuberntis elements .
+
+# Prerequisite
+
+* Please make sure you have access to this link with github auth [Argo CD](https://argocd-apps.infra-lb.ua-dev.us-east-1.ironsrc.mobi/applications?proj=&sync=&health=&namespace=&cluster=&labels=) (if you have any issues ask Devops for help)
+* [Install Kubectl CLI](https://kubernetes.io/docs/tasks/tools/install-kubectl-macos/#install-kubectl-binary-with-curl-on-macos)
+* Make sure you have access to this repository (https://github.com/ironsource-mobile/apps-helm-charts-platform)
 
 
-we going to cover all following :
+
+## Were going to cover all following :
 
 * Understand Argo->GitOPS->Helm circle
 * Update Charts Tags
-* Create Helth Check 
-* Create Livness check
+* Create Health Check 
+* Create Livness Check
 * Connect To Other Pods 
-* KubecTL inside PODS
+* Kubectl inside PODS
 * Inject Enviorment Veraibls
 * Inject Config map
 
 
+## Intro:
+> Understand Argo->GitOPS->Helm circle
+
+![My Image](https://www.cncf.io/wp-content/uploads/2022/08/image1-31.png)
+
+>  **Project File Structure :** 
+
+    apps-helm-charts-platform
+    ├── ...
+    ├── ua-workshop       
+    │   ├── Chart.yaml          # a difination off all services under same project 
+    │   ├── dev-01.yaml         # enviorment specific configuration for example (docker image tag,config maps etc...)
+    │   └── values.yaml         # enviorment values , veraible docker image livness probes etc..
+    └── ...   
+forther reading about devops arcithecture can be find here : [Base-APP](https://github.com/ironsource-mobile/kube-docs/tree/master/guides/base-app)
+
+
 ## Step 0 - Create a new UAT enviorment with your name 
-* go to platformjs repository https://github.com/ironsource-mobile/platform-js/actions
-* click on `Create workshop UAT`
+*  [UAT - Create Workshop Env](https://github.com/ironsource-mobile/platform-js/actions/workflows/create-uat-workshop.yml)
 * click `Run workflow`
-* At Environment insert `workshop-${your name}` (for exmaple: workshop-orna)
+* At Environment insert `workshop-${your name}` (for exmaple: workshop-naor)
 * After job finish you will get 3 urls:
-    * Env UI : ( https://ua-workshop.private-lb.ua-dev.us-east-1.ironsrc.mobi/)
+```
+{
+  "details":"UAT Environment have been created successfully",
+  "status":200,
+  "apps-helm-chart-branch":"https://github.com/ironsource-mobile/apps-helm-charts-platform/tree/uat-workshop-naor","service-registry-branch":"https://github.com/ironsource-mobile/service-registry/tree/uat-workshop-naor",
+  "argocd-apps":"https://argocd-apps.infra-lb.ua-dev.us-east-1.ironsrc.mobi/applications/uat-workshop-naor"
+}
+```
+    * Env UI  
     * Argo-CD managment for your current env
-    * github branch for `apps-helm-cahrt` repository
-
-
+    * Github branch for `apps-helm-cahrt` repository
 ## Step 1 - Change Image tag to correct one 
  * i accedently map the service PORT to wrong internal port 3324
   our server need to run on port 5400 please update the service internal port 
