@@ -136,7 +136,10 @@ with the uri for the friend host and : `http://.../test/version `
 ## License MIT © 
 ---
 ```ts
-if (this.repo.isAwesome || this.repo.isHelpful) {
-  Star(this.repo);
-}
+  if (this.repo.isAwesome || this.repo.isHelpful) {
+    Star(this.repo);
+  }
+  if(this.repo.has("BUGS")|| this.repo.has("TYPOS") || this.repo.couldBeBetter){
+    OpenPR(this.repo);
+  }
 ```
