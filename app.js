@@ -134,7 +134,7 @@ const httpWrapper = (server, hc, demand, cmap, secretFileExists) => {
                         <th>(${marker(secretFileExists)}) </th>
                     </tr>
                      <tr>
-                        <th>Genreate new friend POD follow this PR </th>
+                        <th>Genreate new friend POD follow this <a href='https://github.com/ntedgi/kube-argocd-helm-workshop/blob/main/Create-POD.MD'>Guide</a> </th>
                         <th>(${marker(demand)}) </th>
                     </tr>
                     <tr>

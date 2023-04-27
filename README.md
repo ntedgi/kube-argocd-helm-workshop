@@ -29,6 +29,7 @@
 * Update Charts Tags
 * Create Health Check 
 * Create Livness Check
+* Create a New Pod at the same namespace
 * Connect To Other Pods 
 * Kubectl inside PODS
 * Inject Enviorment Veraibls
@@ -56,7 +57,7 @@ forther reading about devops arcithecture can be find here : [Base-APP](https://
 *  [UAT - Create Workshop Env](https://github.com/ironsource-mobile/platform-js/actions/workflows/create-uat-workshop.yml)
 * click `Run workflow`
 * At Environment insert `workshop-${your name}` (for exmaple: workshop-naor)
-* After job finish you will get 3 urls:
+* After job finish you will get 4 urls:
 ```
 {
   "details":"UAT Environment have been created successfully",
@@ -64,15 +65,29 @@ forther reading about devops arcithecture can be find here : [Base-APP](https://
   "apps-helm-chart-branch":"https://github.com/ironsource-mobile/apps-helm-charts-platform/tree/uat-workshop-naor","service-registry-branch":"https://github.com/ironsource-mobile/service-registry/tree/uat-workshop-naor",
   "argocd-apps":"https://argocd-apps.infra-lb.ua-dev.us-east-1.ironsrc.mobi/applications/uat-workshop-naor"
 }
+200
+api url http://ua-workshop.uat-platform.ua-dev.us-east-1.ironsrc.mobi/
 ```
-    * Env UI  
+    * API url - UI for your app  
     * Argo-CD managment for your current env
-    * Github branch for `apps-helm-cahrt` repository
-## Step 1 - Change Image tag to correct one 
+    * Github branch for `service-registry` repository
+    * Github branch for `apps-helm-chart` repository
+
+
+
+## Before starting:
+* all your changes should be made at you `apps-helm-chart`  branch
+`/apps-helm-charts-platform/values/ua/demand-platform/ua-workshop`
+* don't push your branch to master 
+* afetr each commit refresh the enviorment in argo cd and the UI at the browser
+
+
+## Step 1 - Change Port to correct one and check UI is working 
  * i accedently map the service PORT to wrong internal port 3324
   our server need to run on port 5400 please update the service internal port 
  * commit and push your chages and update argo 
   if everything works fine you should see a website at your ENV-UI
+
   
 
 ## Step 2 - Change Image tag to correct one 
@@ -97,16 +112,22 @@ the new file need to be
         "appName": "YOUR_NAME"
     }
     ```
-* don't be a child insert your real name (idan yossi noa meny etc ...) not YOUR_NAME!
+* learn from examples you got plannty here 
+`/apps-helm-charts-platform/values/ua/demand-platform/platform-js/dev-01.yaml`
+* if you set it right it will reflect on the ui 
 
-## Step 5 - inject enviorment veraible 
+## Step 5 - create a new POD from scratch 
+follow this guide
+https://github.com/ntedgi/kube-argocd-helm-workshop/blob/main/Create-POD.MD 
+
+## Step 6 - inject enviorment veraible 
 open shell into the pod just like `docker exec`
 read and delete `SECRET.txt` there you will find the host name for `friend` pod
 the command you need is :
 `kubectl -n <NAME-SPACE> exec -it <POD>`
 
 
-## Step 6 - interact with pods on same namespace
+## Step 7 - interact with pods on same namespace
 * our server need to send request to other POD at the same enviorment 
 * add new Enviorment veraible with the `FRIEND_HOST`
 with the uri for the friend host and : `http://.../test/version ` 
