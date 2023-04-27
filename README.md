@@ -80,7 +80,7 @@ api url http://ua-workshop.uat-platform.ua-dev.us-east-1.ironsrc.mobi/
 * afetr each commit refresh the enviorment in argo cd and the UI at the browser
 
 ## Step 1 - Change Port to correct one and check UI is working 
- * i accedently map the service PORT to wrong internal port 3324
+ * i accedently map the service PORT to wrong internal port 3324 at `values.yaml`
   our server need to run on port 5400 please update the service internal port 
  * commit and push your chages and update argo 
   if everything works fine you should see a website at your ENV-UI
