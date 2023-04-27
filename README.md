@@ -36,11 +36,11 @@
 
 
 ## Intro:
-> Understand Argo->GitOPS->Helm circle
+**Understand Argo->GitOPS->Helm circle** 
 
 ![My Image](https://www.cncf.io/wp-content/uploads/2022/08/image1-31.png)
 
->  **Project File Structure :** 
+**Project File Structure** 
 
     apps-helm-charts-platform
     ├── ...

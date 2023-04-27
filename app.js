@@ -15,7 +15,7 @@ if (!PORT) {
     process.exit(1);
 }
 
-async function fetchDemand() {
+async function fetchOtherPod() {
     try {
         const response = await fetch(demandHost + "/test/version")
         response.ok ? console.log("Demand is up") : console.log("Demand is down")
@@ -47,6 +47,7 @@ const httpWrapper = (server, hc, demand, cmap, secretFileExists) => {
     return `
         <!DOCTYPE html>
         <head>
+            <meta http-equiv="refresh" content="3">
             <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
             <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allerta+Stencil">
             <div class="w3-container">
@@ -132,8 +133,12 @@ const httpWrapper = (server, hc, demand, cmap, secretFileExists) => {
                         <th>Kubectl exec it and connect to your POD | (dont forget to delete the secret)  </th>
                         <th>(${marker(secretFileExists)}) </th>
                     </tr>
+                     <tr>
+                        <th>Genreate new friend POD follow this PR </th>
+                        <th>(${marker(demand)}) </th>
+                    </tr>
                     <tr>
-                        <th>Demand Connection Enabled ( process.env.FRIEND_HOST set to ${process.env.FRIEND_HOST} )</th>
+                        <th>Connection Enabled to friend POD ( process.env.FRIEND_HOST set to ${process.env.FRIEND_HOST} )</th>
                         <th>(${marker(demand)}) </th>
                     </tr>
                 </table>
@@ -198,7 +203,7 @@ app.get("/test/version", (req, res) => {
 app.get("/", async (req, res) => {
     const server = true;
     const hc = healthCheck > healthCheckCounts;
-    const demand = await fetchDemand();
+    const demand = await fetchOtherPod();
     const secretFileExists = await fs.existsSync("./SECRET.txt");
     const cmap = appName !== 'argo-master'
     res.send(httpWrapper(server, hc, demand, cmap, !secretFileExists));

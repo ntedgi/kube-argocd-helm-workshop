@@ -2,12 +2,13 @@ const express = require("express");
 const bpeh = require('express-body-parser-error-handler')
 const app = express();
 const PORT = process.env.PORT;
+
 if (!PORT) {
     console.error("PORT is not set");
     process.exit(1);
 }
 
-const httpWrapper = (server, hc, cmap, demand) => {
+const httpWrapper = () => {
     return `
             <!DOCTYPE html>
             <head>
@@ -74,5 +75,5 @@ app.listen(PORT, () => {
 
 app.use(bpeh())
 app.get("/", async (req, res) => {
-    res.send(httpWrapper(false, false, false, false));
+    res.send(httpWrapper());
 });
