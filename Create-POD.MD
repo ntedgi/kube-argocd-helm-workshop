@@ -18,6 +18,14 @@ friend:
   image:
     tag: latest
 ```
+
+### 2) define at `platform-dev-01.yaml` 
+
+```yaml
+friend:
+  clusterNum: "01"
+  team: platform
+```
 ### 3) define at `values.yaml` 
 ```yaml
 friend:
