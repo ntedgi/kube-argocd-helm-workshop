@@ -96,6 +96,32 @@ api url http://ua-workshop.uat-platform.ua-dev.us-east-1.ironsrc.mobi/
 * the pod expose an health check end point `/health`
 * use it to configure the health check 
 * if you need help check `apps-helm-charts-platform/values/ua/demand-platform/platform-js/values.yaml` for reference 
+```
+  livenessProbe:
+    enabled: true
+    failureThreshold: 5
+    initialDelaySeconds: 60
+    periodSeconds: 5
+    successThreshold: 1
+    timeoutSeconds: 5
+    mode: httpGet
+    httpGet:
+      port: 3000
+      path: /test/version
+  readinessProbe:
+    enabled: true
+    failureThreshold: 5
+    initialDelaySeconds: 60
+    periodSeconds: 5
+    successThreshold: 1
+    timeoutSeconds: 5
+    mode: httpGet
+    httpGet:
+      port: 3000
+      path: /test/version
+```
+
+
 * make sure your health check pinging more the 5 times 
 * if you set it right it will reflect on the ui 
 
