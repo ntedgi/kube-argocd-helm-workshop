@@ -122,6 +122,12 @@ and instruction on how to add new env veraible to service
 the command you need is :
 `kubectl -n <NAME-SPACE> exec -it <POD>`
 
+* you can find your namsepace name by pressing the pod 
+
+
+![My Image](https://raw.githubusercontent.com/ntedgi/kube-argocd-helm-workshop/main/images/Screenshot%202023-05-01%20at%209.12.52.png)
+
+
 ## Step 7 - interact with pods on same namespace
 * our server need to send request to other POD at the same enviorment 
 * add new Enviorment veraible with the `FRIEND_HOST`
