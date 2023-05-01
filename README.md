@@ -117,7 +117,8 @@ https://github.com/ntedgi/kube-argocd-helm-workshop/blob/main/Create-POD.MD
 
 ## Step 6 - inject enviorment veraible 
 open shell into the pod just like `docker exec`
-read and delete `SECRET.txt` there you will find the host name for `friend` pod
+read `SECRET.txt` there you will find the host name for `friend` pod
+and instruction on how to add new env veraible to service
 the command you need is :
 `kubectl -n <NAME-SPACE> exec -it <POD>`
 
