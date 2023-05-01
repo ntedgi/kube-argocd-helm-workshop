@@ -127,8 +127,8 @@ Note change port and URL according to enviorment
 * if you set it right it will reflect on the ui 
 
 ## Step 4 - inject config map 
-* please inject a new config map file to `/usr/local/app/config/setup.json`
-the new file need to be 
+* please inject a new config map file to the following POD path: `/usr/local/app/config/setup.json` 
+the new file needs to be 
     ```json
     {
         "appName": "YOUR_NAME"
