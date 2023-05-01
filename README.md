@@ -96,6 +96,7 @@ api url http://ua-workshop.uat-platform.ua-dev.us-east-1.ironsrc.mobi/
 * the pod expose an health check end point `/health`
 * use it to configure the health check  at `values.yaml` file
 * if you need help check `apps-helm-charts-platform/values/ua/demand-platform/platform-js/values.yaml` for reference 
+Note change port and URL according to enviorment
 ```
   livenessProbe:
     enabled: true
