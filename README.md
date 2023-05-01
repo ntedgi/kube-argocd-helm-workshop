@@ -94,7 +94,7 @@ api url http://ua-workshop.uat-platform.ua-dev.us-east-1.ironsrc.mobi/
 
 ## Step 3 - please add an health check to your workshop POD 
 * the pod expose an health check end point `/health`
-* use it to configure the health check 
+* use it to configure the health check  at `values.yaml` file
 * if you need help check `apps-helm-charts-platform/values/ua/demand-platform/platform-js/values.yaml` for reference 
 ```
   livenessProbe:
