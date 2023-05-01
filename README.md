@@ -137,7 +137,25 @@ the new file need to be
 * learn from examples you got plannty here 
 `/apps-helm-charts-platform/values/ua/demand-platform/platform-js/dev-01.yaml`
 * if you set it right it will reflect on the ui 
-
+```
+ volumes:
+    config-volume-development:
+      mountPath: /usr/local/app/config/setup.json
+      subPath: setup.json
+      volumeSpec:
+        configMap:
+          name: ua-workshop-workshop
+          items:
+            - key: setup.json
+              path: setup.json
+  configmaps:
+    workshop:
+      raw_data:
+        setup.json: |
+          {
+            "appName": "Neo"
+          }
+``` 
 ## Step 5 - create a new POD from scratch 
 follow this guide
 https://github.com/ntedgi/kube-argocd-helm-workshop/blob/main/Create-POD.MD 
