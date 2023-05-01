@@ -165,7 +165,7 @@ open shell into the pod just like `docker exec`
 read `SECRET.txt` there you will find the host name for `friend` pod
 and instruction on how to add new env veraible to service
 the command you need is :
-`kubectl -n <NAME-SPACE> exec -it <POD>`
+`kubectl -n <NAME-SPACE> exec -it <POD> bash`
 
 * you can find your namsepace name by pressing the pod 
 
