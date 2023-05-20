@@ -46,9 +46,9 @@
     apps-helm-charts-platform
     ├── ...
     ├── ua-workshop       
-    │   ├── Chart.yaml          # a difination off all services under same project 
-    │   ├── dev-01.yaml         # enviorment specific configuration for example (docker image tag,config maps etc...)
-    │   └── values.yaml         # enviorment values , veraible docker image livness probes etc..
+    │   ├── Chart.yaml          # a definition of all services under same project 
+    │   ├── dev-01.yaml         # environment specific configuration for example (docker image tag,config maps etc...)
+    │   └── values.yaml         # environment values , veraible docker image livness probes etc..
     └── ...   
 forther reading about devops arcithecture can be find here : [Base-APP](https://github.com/ironsource-mobile/kube-docs/tree/master/guides/base-app)
 
