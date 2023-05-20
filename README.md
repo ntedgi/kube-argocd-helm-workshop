@@ -46,7 +46,7 @@
     apps-helm-charts-platform
     ├── ...
     ├── ua-workshop       
-    │   ├── Chart.yaml          # a difination off all services under same project 
+    │   ├── Chart.yaml          # a definition off all services under same project 
     │   ├── dev-01.yaml         # enviorment specific configuration for example (docker image tag,config maps etc...)
     │   └── values.yaml         # enviorment values , veraible docker image livness probes etc..
     └── ...   
