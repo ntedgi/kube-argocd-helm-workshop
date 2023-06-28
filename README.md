@@ -32,7 +32,7 @@
 * Create a New Pod at the same namespace
 * Connect To Other Pods 
 * Kubectl inside PODS
-* Inject Enviorment Veraibls
+* Inject environment Veraibls
 * Inject Config map
 
 
@@ -53,7 +53,7 @@
 forther reading about devops arcithecture can be find here : [Base-APP](https://github.com/ironsource-mobile/kube-docs/tree/master/guides/base-app)
 
 
-## Step 0 - Create a new UAT enviorment with your name 
+## Step 0 - Create a new UAT environment with your name 
 *  [UAT - Create Workshop Env](https://github.com/ironsource-mobile/platform-js/actions/workflows/create-uat-workshop.yml)
 * click `Run workflow`
 * At Environment insert `workshop-${your name}` (for exmaple: workshop-naor)
@@ -77,7 +77,7 @@ api url http://ua-workshop.uat-platform.ua-dev.us-east-1.ironsrc.mobi/
 * all your changes should be made at you `apps-helm-chart`  branch
 `/apps-helm-charts-platform/values/ua/demand-platform/ua-workshop`
 * don't push your branch to master 
-* afetr each commit refresh the enviorment in argo cd and the UI at the browser
+* afetr each commit refresh the environment in argo cd and the UI at the browser
 
 ## Step 1 - Change Port to correct one and check UI is working 
  * i accedently map the service PORT to wrong internal port 3324 at `values.yaml`
@@ -96,7 +96,7 @@ api url http://ua-workshop.uat-platform.ua-dev.us-east-1.ironsrc.mobi/
 * the pod expose an health check end point `/health`
 * use it to configure the health check  at `values.yaml` file
 * if you need help check `apps-helm-charts-platform/values/ua/demand-platform/platform-js/values.yaml` for reference 
-Note change port and URL according to enviorment
+Note change port and URL according to environment
 ```
   livenessProbe:
     enabled: true
@@ -123,7 +123,7 @@ Note change port and URL according to enviorment
 ```
 
 
-* make sure your health check pinging more the 5 times 
+* make sure your health check pinging more than 5 times 
 * if you set it right it will reflect on the ui 
 
 ## Step 4 - inject config map 
@@ -160,7 +160,7 @@ the new file needs to be
 follow this guide
 https://github.com/ntedgi/kube-argocd-helm-workshop/blob/main/Create-POD.MD 
 
-## Step 6 - inject enviorment veraible 
+## Step 6 - inject environment veraible 
 open shell into the pod just like `docker exec`
 read `SECRET.txt` there you will find the host name for `friend` pod
 and instruction on how to add new env veraible to service
@@ -177,8 +177,8 @@ the command you need is :
 
 
 ## Step 7 - interact with pods on same namespace
-* our server need to send request to other POD at the same enviorment 
-* add new Enviorment veraible with the `FRIEND_HOST`
+* our server need to send request to other POD at the same environment 
+* add new environment veraible with the `FRIEND_HOST`
 with the uri for the friend host and : `http://.../test/version ` 
 * what is the host name of pods under the same namespace?
 
