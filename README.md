@@ -17,7 +17,7 @@
 
 # Prerequisite
 
-* Please make sure you have access to this link with github auth [Argo CD](https://argocd-apps.infra-lb.ua-dev.us-east-1.ironsrc.mobi/applications?proj=&sync=&health=&namespace=&cluster=&labels=) (if you have any issues ask Devops for help)
+* Please make sure you have access to this link with github auth [Argo CD]([https://argocd-apps.infra-lb.ua-dev.us-east-1.ironsrc.mobi/](https://argocd-apps.infra-lb.platform-dev-01.us-east-1.ironsrc.mobi/)applications?proj=&sync=&health=&namespace=&cluster=&labels=) (if you have any issues ask Devops for help)
 * [Install Kubectl CLI](https://kubernetes.io/docs/tasks/tools/install-kubectl-macos/#install-kubectl-binary-with-curl-on-macos)
 * Make sure you have access to this repository (https://github.com/ironsource-mobile/apps-helm-charts-platform)
 
