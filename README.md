@@ -77,7 +77,7 @@ api url http://ua-workshop.uat-platform.ua-dev.us-east-1.ironsrc.mobi/
 * all your changes should be made at you `apps-helm-chart`  branch
 `/apps-helm-charts-platform/values/ua/demand-platform/ua-workshop`
 * don't push your branch to master 
-* afetr each commit refresh the environment in argo cd and the UI at the browser
+* after each commit press `Refresh` the environment in argo cd and the UI at the browser
 
 ## Step 1 - Change Port to correct one and check UI is working 
  * i accedently map the service PORT to wrong internal port 3324 at `values.yaml`
@@ -183,6 +183,7 @@ with the uri for the friend host and : `http://.../test/version `
 * what is the host name of pods under the same namespace?
 
 ## License MIT © 
+
 ---
 ```ts
   if (this.repo.isAwesome || this.repo.isHelpful) {
